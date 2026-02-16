@@ -2,7 +2,7 @@
 
 ###
 
-<p align="left">My name is Piraveen and I'm a Computer Science Student  from University of Jaffna, Faculty of Science, Department of Computer Science</p>
+<p align="left">My name is Piraveen, and I am a Computer Science student at the Department of Computer Science, Faculty of Science, University of Jaffna.</p>
 
 ###
 
