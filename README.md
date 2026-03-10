@@ -59,7 +59,7 @@
 ###
 
 <div align="left">
-  <a href="https://www.linkedin.com/in/piraveen-sasikaran-88354a268?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
+  <a href="https://www.linkedin.com/in/sasikaran-piraveen?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
     <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/linkedin/default.svg" width="52" height="40" alt="linkedin logo"  />
   </a>
   <a href="https://www.instagram.com/piraveen.13?igsh=MWlieWpnanZpM2l4cw%3D%3D&utm_source=qr" target="_blank">
