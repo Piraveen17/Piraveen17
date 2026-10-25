@@ -1,62 +1,677 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Interactive walkthrough of a WhatsApp kottu-order workflow.">
-<title>AI Workflow Lab | Piraveen</title>
-<style>
-:root{color-scheme:dark;--bg:#07111d;--panel:#0d1b2a;--line:#21374a;--text:#e6f1f7;--muted:#91a8b8;--cyan:#67e8f9;--teal:#5eead4;--amber:#fbbf24}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#123047 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:1100px;margin:auto;padding:36px 20px 60px}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid #23566a;border-radius:999px;padding:5px 13px;color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.dot{width:7px;height:7px;background:var(--teal);border-radius:50%;box-shadow:0 0 12px #5eead4}
-h1{font-size:clamp(30px,5vw,48px);letter-spacing:-.04em;line-height:1.08;margin:20px 0 12px}h1 span{color:var(--cyan)}.intro{max-width:720px;color:var(--muted);margin:0 0 26px}
-.player{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#091521;box-shadow:0 24px 80px #0004}.toolbar{display:flex;flex-wrap:wrap;gap:8px;padding:15px;border-bottom:1px solid var(--line);align-items:center}.toolbar button{border:1px solid #29465b;background:#102333;color:var(--text);border-radius:10px;padding:9px 13px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.toolbar button:hover{border-color:var(--cyan)}.toolbar button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}.toolbar .primary{background:var(--cyan);border-color:var(--cyan);color:#06202b}.toolbar button:disabled{opacity:.45;cursor:not-allowed}.toolbar .spacer{flex:1}.stepcount{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}.progress{height:3px;background:#172b3b}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--cyan));transition:width .35s ease}
-.stage{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}.pane{border:1px solid var(--line);background:var(--panel);border-radius:15px;min-height:370px;overflow:hidden}.pane h2{font-size:13px;letter-spacing:.04em;margin:0;padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}.pane h2 small{font-weight:500;color:var(--muted)}.stream{list-style:none;margin:0;padding:15px;display:flex;flex-direction:column;gap:11px}.bubble{max-width:94%;border:1px solid #29465b;background:#102333;border-radius:13px 13px 13px 4px;padding:11px 13px;white-space:pre-line;animation:rise .28s ease both}.bubble.customer{align-self:flex-end;background:#103a3a;border-color:#246b67;border-radius:13px 13px 4px 13px}.bubble.assistant{align-self:flex-start}.label{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:4px}.trace{border-left:2px solid #31556b;padding:3px 0 4px 13px;animation:rise .28s ease both}.trace h3{font-size:13px;margin:0 0 4px}.trace p{color:var(--muted);font-size:13px;margin:0}.trace code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;background:#07111d;border:1px solid #1b3446;border-radius:8px;padding:9px;margin-top:8px;color:#b9f5e8;font-size:12px}.pill{display:inline-block;margin-top:8px;font-size:10px;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:3px 8px;background:#123c3b;color:var(--teal)}.empty{color:#6d8798;text-align:center;padding:70px 18px;font-size:13px}.foot{padding:0 18px 18px;color:var(--muted);font-size:12px}.foot strong{color:#c2d5e1}
-@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(max-width:720px){main{padding:25px 12px 40px}.stage{grid-template-columns:1fr}.pane{min-height:260px}.toolbar .spacer{display:none}.toolbar{align-items:center}.stepcount{width:100%}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Interactive walkthrough of deterministic AI systems: WhatsApp order management and Car Rental enterprise Text-to-SQL analytics by Sasikaran Piraveen.">
+  <title>AI Workflow Lab — Piraveen</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d18;
+      --surface: #101827;
+      --surface-raised: #141f32;
+      --surface-soft: #0c1422;
+      --line: #27364c;
+      --line-strong: #3c526d;
+      --text: #eef4fc;
+      --muted: #a1b1c8;
+      --faint: #7386a2;
+      --cyan: #38bdf8;
+      --teal: #2dd4bf;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --red: #fb7185;
+      --radius: 18px;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .25);
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 320px; background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(14, 116, 144, .15), transparent 38rem),
+        radial-gradient(ellipse at 95% 25%, rgba(45, 212, 191, .08), transparent 36rem),
+        var(--bg);
+      font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button { font: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 48px 0 38px; }
+    .eyebrow { display: inline-flex; width: max-content; max-width: 100%; box-sizing: border-box; white-space: nowrap; align-items: center; gap: 9px; padding: 7px 11px; border: 1px solid #1d5265; border-radius: 999px; background: rgba(8, 46, 62, .62); color: #8be2fb; font: 700 11px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(45, 212, 191, .10); }
+    .hero { display: flex; justify-content: space-between; align-items: end; gap: 28px; margin-bottom: 26px; }
+    h1 { max-width: 790px; margin: 16px 0 10px; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.08; letter-spacing: -.04em; }
+    h1 .accent { color: var(--cyan); }
+    .intro { max-width: 760px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .hero-aside { min-width: 184px; padding: 14px 17px; border: 1px solid var(--line); border-radius: 15px; background: rgba(16, 24, 39, .7); }
+    .hero-aside strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .hero-aside span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .player { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(13, 21, 35, .92); box-shadow: var(--shadow); }
+    .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; padding: 16px 18px; border-bottom: 1px solid var(--line); background: rgba(17, 27, 44, .78); }
+    .scenario-list { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .scenario-button { min-height: 38px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); cursor: pointer; font-size: 13px; font-weight: 550; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+    .scenario-button:hover { color: var(--text); background: var(--surface-raised); border-color: var(--line-strong); }
+    .scenario-button[aria-pressed="true"] { color: #8be2fb; border-color: #25617a; background: #102d40; box-shadow: inset 0 0 0 1px rgba(56, 189, 248, .12); }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .control { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: #182439; color: var(--text); font-weight: 650; cursor: pointer; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    .control:hover:not(:disabled) { transform: translateY(-1px); border-color: #4b7795; background: #20314a; }
+    .control.primary { border-color: #1482a8; background: #0d4661; color: #dff7ff; }
+    .control.primary:hover:not(:disabled) { background: #105a78; }
+    .control:disabled { cursor: not-allowed; opacity: .42; }
+    button:focus-visible { outline: 3px solid #8be2fb; outline-offset: 3px; }
+    .meta-row { display: flex; justify-content: space-between; gap: 15px; padding: 14px 20px 4px; color: var(--muted); font-size: 12px; }
+    .scenario-description { color: var(--text); font-weight: 600; }
+    .progress-track { height: 3px; margin: 10px 20px 18px; overflow: hidden; border-radius: 99px; background: #202d42; }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--cyan), var(--teal)); transition: width .45s ease; }
+    .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 15px; padding: 0 18px 18px; }
+    .pane { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .pane-head { display: flex; justify-content: space-between; align-items: start; gap: 15px; padding: 16px 17px 13px; border-bottom: 1px solid var(--line); }
+    .pane-kicker { margin: 0 0 4px; color: var(--cyan); font: 700 10px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .11em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: 16px; letter-spacing: -.015em; }
+    .pane-subtitle { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .live-label { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .live-label::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    .chat-list, .trace-list { display: flex; flex-direction: column; gap: 11px; min-height: 420px; max-height: 560px; overflow-y: auto; margin: 0; padding: 16px; list-style: none; }
+    .empty-state { display: grid; min-height: 340px; place-content: center; justify-items: center; gap: 8px; text-align: center; color: var(--faint); }
+    .empty-icon { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--line); border-radius: 14px; color: var(--cyan); background: var(--surface-raised); font-size: 18px; }
+    .empty-state strong { color: var(--muted); font-size: 13px; font-weight: 600; }
+    .empty-state span { max-width: 240px; font-size: 12px; }
+    
+    /* Message bubble styling */
+    .message { max-width: 94%; padding: 11px 13px; border: 1px solid var(--line); border-radius: 14px; animation: rise .28s ease both; }
+    .message.customer, .message.user { align-self: flex-start; border-top-left-radius: 4px; background: #172338; }
+    .message.bot, .message.assistant { align-self: flex-start; border-color: #20594f; border-top-left-radius: 4px; background: #0e2b2b; }
+    .message.me { align-self: flex-end; border-color: #265778; border-top-right-radius: 4px; background: #102d43; }
+    .message .speaker { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; color: var(--muted); font: 700 10px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .message.bot .speaker, .message.assistant .speaker { color: #72e4cc; }
+    .message.me .speaker { color: #8ddfff; }
+    .message p { margin: 0; color: var(--text); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+    
+    /* Interactive chips & clarification options */
+    .chip-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; padding-top: 8px; border-top: 1px dashed rgba(45, 212, 191, .25); }
+    .chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border: 1px solid #236859; border-radius: 999px; background: #0c332c; color: #a5f3e0; font-size: 11px; font-weight: 600; }
+    .chip::before { content: "›"; color: var(--teal); font-weight: 900; }
+    
+    /* Mini data table styling */
+    .data-table-wrap { margin-top: 10px; overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft); }
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+    .mini-table th { padding: 6px 9px; background: #142337; color: #8be2fb; font-weight: 700; border-bottom: 1px solid var(--line); font-family: ui-monospace, monospace; }
+    .mini-table td { padding: 6px 9px; border-bottom: 1px solid rgba(39, 54, 76, .6); color: var(--text); }
+    .mini-table tr:last-child td { border-bottom: none; }
+    
+    /* Expandable SQL inspect drawer */
+    .sql-toggle { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; color: #7386a2; font: 600 11px ui-monospace, monospace; cursor: pointer; user-select: none; }
+    .sql-toggle:hover { color: var(--cyan); }
+    
+    .message .message-note { display: block; margin-top: 6px; color: var(--faint); font-size: 10px; }
+    
+    /* Execution trace entries */
+    .trace-list { gap: 8px; }
+    .trace-entry { display: grid; grid-template-columns: 31px minmax(0,1fr) auto; gap: 10px; align-items: start; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-raised); animation: rise .28s ease both; }
+    .trace-entry.active { border-color: #1684ab; background: linear-gradient(100deg, rgba(14, 55, 76, .85), rgba(18, 31, 49, .95)); box-shadow: 0 0 0 1px rgba(56, 189, 248, .08); }
+    .trace-entry.done { border-color: #24584f; background: #102825; }
+    .trace-icon { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid var(--line-strong); border-radius: 9px; color: var(--muted); background: #111a2b; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .trace-entry.active .trace-icon { border-color: #167d9f; color: var(--cyan); background: #0c3548; }
+    .trace-entry.done .trace-icon { border-color: #217d68; color: var(--teal); background: #103e37; }
+    .trace-title { margin: 1px 0 3px; font-size: 13px; font-weight: 700; }
+    .trace-body { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+    .trace-entry.active .trace-body { color: #c2e9f5; }
+    .code { margin: 8px 0 0; padding: 9px 11px; overflow: auto; border: 1px solid #26364c; border-radius: 8px; background: var(--surface-soft); color: #9ce8d8; font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .status { align-self: start; padding: 3px 7px; border: 1px solid var(--line); border-radius: 999px; color: var(--faint); font-size: 9px; font-weight: 800; letter-spacing: .05em; white-space: nowrap; }
+    .trace-entry.active .status { border-color: #176e8b; color: #86e2ff; background: #0d3549; }
+    .trace-entry.done .status { border-color: #276851; color: #8aefd0; background: #10372d; }
+    
+    .footnote { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 14px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .principles { display: flex; flex-wrap: wrap; gap: 7px; }
+    .principles span { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; background: #111b2b; white-space: nowrap; font-size: 11px; }
+    .principles span::before { content: "✓"; color: var(--teal); font-weight: 900; }
+    .footer { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 16px; padding-top: 22px; text-align: center; color: var(--faint); font-size: 11px; }
+    .footer a { color: var(--muted); text-decoration-color: #3b536b; text-underline-offset: 3px; }
+    .download-source { padding: 5px 11px; border: 1px solid var(--line); border-radius: 8px; background: rgba(16, 24, 39, .7); color: var(--muted); font: inherit; cursor: pointer; transition: border-color .18s ease, color .18s ease, background .18s ease; }
+    .download-source:hover { border-color: #4b7795; color: var(--text); background: #182439; }
+    .download-source:focus-visible { outline: 3px solid #8be2fb; outline-offset: 3px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, .25); } 50% { box-shadow: 0 0 0 5px rgba(45, 212, 191, 0); } }
+    .live-label::before { animation: pulse 2s ease infinite; }
+    @media (max-width: 900px) {
+      .hero { align-items: start; flex-direction: column; }
+      .hero-aside { display: none; }
+      .stage { grid-template-columns: 1fr; }
+      .chat-list, .trace-list { min-height: 240px; max-height: 400px; }
+    }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 22px, 1180px); padding-top: 26px; }
+      .toolbar { align-items: stretch; padding: 12px; }
+      .scenario-list, .actions { width: 100%; }
+      .scenario-button { flex: 1 1 auto; padding-inline: 8px; font-size: 11px; }
+      .actions .control { flex: 1; padding-inline: 8px; font-size: 12px; }
+      .stage { padding-inline: 10px; }
+      .trace-entry { grid-template-columns: 28px minmax(0,1fr); }
+      .status { grid-column: 2; justify-self: start; }
+      .footnote { align-items: start; flex-direction: column; padding-inline: 13px; }
+      .principles span { font-size: 10px; }
+      .meta-row { padding-inline: 13px; }
+      .progress-track { margin-inline: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
-<main>
-  <div class="eyebrow"><span class="dot"></span> AI workflow <span aria-hidden="true">/</span> WhatsApp order</div>
-  <h1>From conversation<br>to <span>confirmed order.</span></h1>
-  <p class="intro">Explore how a conversational assistant clarifies an order, then leaves pricing and order creation to deterministic application code. This is an illustrative walkthrough, not a live integration.</p>
-  <section class="player" aria-label="Interactive WhatsApp order walkthrough">
-    <div class="toolbar">
-      <button class="primary" id="next" type="button">Next step →</button>
-      <button id="play" type="button">▶ Play all</button>
-      <button id="reset" type="button">↺ Reset</button>
-      <span class="spacer"></span><span class="stepcount" id="stepcount" aria-live="polite">Step 0 of 7</span>
-    </div>
-    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
-    <div class="stage">
-      <section class="pane" aria-labelledby="conversation-title"><h2 id="conversation-title">Customer conversation <small>WhatsApp</small></h2><ul class="stream" id="chat" aria-live="polite"><li class="empty">Select “Next step” to start the order.</li></ul></section>
-      <section class="pane" aria-labelledby="system-title"><h2 id="system-title">Behind the scenes <small>Application flow</small></h2><ul class="stream" id="trace" aria-live="polite"><li class="empty">The agent and backend steps appear here.</li></ul></section>
-    </div>
-    <p class="foot"><strong>Design principle:</strong> the assistant clarifies intent; deterministic code calculates the total and supplies the order number. Price and order number remain placeholders because no real system values are provided.</p>
-  </section>
-</main>
-<script>
-(function(){
-'use strict';
-const steps=[
-{chat:['Customer',"I'd like two kottu."],trace:{who:'Assistant',title:'Understand the request',body:'Quantity is clear, but the variety is not. Ask a follow-up instead of guessing.',status:'CLARIFY'}},
-{chat:['Assistant','Which kottu would you like: egg, chicken, mutton, or beef?'],trace:{who:'Assistant',title:'Clarify the variety',body:'Offer the available varieties and wait for the customer’s choice.',status:'WAITING FOR CHOICE'}},
-{chat:['Customer','Egg kottu, please.'],trace:{who:'Application',title:'Capture the order details',body:'The order request now has a variety and quantity.',code:'item = "kottu"\nvariety = "egg"\nquantity = 2',status:'DETAILS CAPTURED'}},
-{chat:['Assistant','Would you like to order anything else?'],trace:{who:'Assistant',title:'Check for additional items',body:'Ask the customer before calculating the final order total.',status:'WAITING FOR CUSTOMER'}},
-{chat:['Customer',"No, that's all."],trace:{who:'Application code',title:'Finalize the item list',body:'The customer has finished adding items. Pass the captured order to deterministic application logic.',status:'READY TO CALCULATE'}},
-{trace:{who:'Deterministic code',title:'Calculate the total',body:'Read the applicable egg-kottu price from system data and calculate the total in code. No price is generated by the language model.',code:'unit_price = <price from system data>\ntotal = 2 * unit_price',status:'CALCULATED IN CODE'}},
-{chat:['Assistant','Your order is placed.\nOrder number: [order number returned by backend]\nOrder: 2 × Egg kottu\nTotal: [total calculated by code]'],trace:{who:'Backend',title:'Return the verified result',body:'The customer receives the order number returned by the backend and the total calculated by deterministic code.',status:'RESULT RETURNED'}}
-];
-const chat=document.getElementById('chat'),trace=document.getElementById('trace'),next=document.getElementById('next'),play=document.getElementById('play'),reset=document.getElementById('reset'),count=document.getElementById('stepcount'),progress=document.getElementById('progress');
-let index=0,timer=null;
-function addChat(item){const li=document.createElement('li');li.className='bubble '+(item[0]==='Customer'?'customer':'assistant');const label=document.createElement('span');label.className='label';label.textContent=item[0];li.appendChild(label);li.appendChild(document.createTextNode(item[1]));chat.appendChild(li)}
-function addTrace(item){const li=document.createElement('li');li.className='trace';const h=document.createElement('h3');h.textContent=item.title;li.appendChild(h);const who=document.createElement('span');who.className='label';who.textContent=item.who;li.insertBefore(who,h);const p=document.createElement('p');p.textContent=item.body;li.appendChild(p);if(item.code){const code=document.createElement('code');code.textContent=item.code;li.appendChild(code)}const badge=document.createElement('span');badge.className='pill';badge.textContent=item.status;li.appendChild(badge);trace.appendChild(li)}
-function stop(){if(timer){clearInterval(timer);timer=null}play.textContent='▶ Play all'}
-function update(){count.textContent='Step '+index+' of '+steps.length;progress.style.width=(index/steps.length*100)+'%';next.disabled=index>=steps.length; if(index>=steps.length)stop()}
-function advance(){if(index>=steps.length){stop();return}if(index===0){chat.replaceChildren();trace.replaceChildren()}const s=steps[index++];if(s.chat)addChat(s.chat);if(s.trace)addTrace(s.trace);update();if(index>=steps.length)stop()}
-function resetAll(){stop();index=0;chat.innerHTML='<li class="empty">Select “Next step” to start the order.</li>';trace.innerHTML='<li class="empty">The agent and backend steps appear here.</li>';update()}
-next.addEventListener('click',()=>{stop();advance()});play.addEventListener('click',()=>{if(timer){stop();return}if(index>=steps.length)resetAll();play.textContent='Ⅱ Pause';advance();if(index<steps.length)timer=setInterval(advance,1500)});reset.addEventListener('click',resetAll);update();
-})();
-</script>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Piraveen · AI systems lab</div>
+        <h1>Useful AI. <span class="accent">Controlled actions.</span></h1>
+        <p class="intro">Step-by-step walkthroughs of production-minded AI architectures: from conversational commerce with deterministic calculations to enterprise-governed Text-to-SQL analytics.</p>
+      </div>
+      <aside class="hero-aside" aria-label="Demo information">
+        <strong>Workflow Explorer</strong>
+        <span>2 illustrative workflows</span>
+        <span>Zero hallucinated data</span>
+      </aside>
+    </header>
+
+    <section class="player" aria-label="AI workflow player">
+      <div class="toolbar">
+        <div class="scenario-list" id="scenario-tabs" role="group" aria-label="Choose a workflow scenario">
+          <button class="scenario-button" type="button" data-scenario="kottu" aria-pressed="true">📲 WhatsApp Order (B2C)</button>
+          <button class="scenario-button" type="button" data-scenario="admin_rag" aria-pressed="false">🚗 Car Rental Admin RAG (B2B)</button>
+        </div>
+        <div class="actions" aria-label="Playback controls">
+          <button class="control primary" id="next" type="button">Next step <span aria-hidden="true">→</span></button>
+          <button class="control" id="play" type="button">▶ Play all</button>
+          <button class="control" id="reset" type="button">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="scenario-description" id="scenario-description">Two kottu → choose a variety → calculate the total → return order details.</span>
+        <span id="step-count" aria-live="polite">Ready · 0 steps shown</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Scenario progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <div class="stage">
+        <!-- Left Pane: Interaction Channel -->
+        <section class="pane" aria-labelledby="chat-heading">
+          <div class="pane-head">
+            <div>
+              <p class="pane-kicker" id="channel-kicker">01 / Customer channel</p>
+              <h2 id="chat-heading">WhatsApp conversation</h2>
+              <p class="pane-subtitle" id="channel-subtitle">The messages a customer sees</p>
+            </div>
+            <span class="live-label">Demo</span>
+          </div>
+          <ol class="chat-list" id="chat" aria-live="polite" aria-relevant="additions text">
+            <li class="empty-state"><span class="empty-icon" aria-hidden="true">↗</span><strong>Ready for a scenario</strong><span>Choose “Next step” to follow the conversation.</span></li>
+          </ol>
+        </section>
+
+        <!-- Right Pane: Controlled Execution Trace -->
+        <section class="pane" aria-labelledby="trace-heading">
+          <div class="pane-head">
+            <div>
+              <p class="pane-kicker">02 / Controlled execution</p>
+              <h2 id="trace-heading">Behind the scenes</h2>
+              <p class="pane-subtitle">Intent routing, AST validation, and database grounding</p>
+            </div>
+            <span class="live-label">Execution trace</span>
+          </div>
+          <ol class="trace-list" id="trace" aria-live="polite" aria-relevant="additions text">
+            <li class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><strong>No steps shown yet</strong><span>The illustrative workflow trace will appear here.</span></li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="footnote">
+        <span id="principle-note">Clarify the order first; let deterministic code calculate the total.</span>
+        <div class="principles" id="principles-pills" aria-label="Design principles">
+          <span>Intent clarification</span><span>Deterministic total</span><span>Backend order reference</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Illustrative software-design walkthrough · <a href="https://github.com/Piraveen17" target="_blank" rel="noopener">GitHub / Piraveen17</a> · <a href="https://piraveen-portfolio.vercel.app" target="_blank" rel="noopener">Portfolio</a></span>
+      <button class="download-source" id="download-source" type="button" title="Download a clean copy of this standalone HTML file">↓ Download HTML source</button>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+      const scenarios = {
+        kottu: {
+          label: '📲 WhatsApp Order (B2C)',
+          description: 'Two kottu → choose a variety → calculate the total → return order details.',
+          kicker: '01 / Customer channel',
+          title: 'WhatsApp conversation',
+          subtitle: 'The messages a customer sees',
+          principle: 'Clarify the order first; let deterministic code calculate the total.',
+          pills: ['Intent clarification', 'Deterministic total', 'Backend order reference'],
+          steps: [
+            {
+              chat: { who: 'Customer', actor: 'customer', text: "I'd like two kottu." },
+              trace: { type: 'agent', title: 'Understand the request', body: 'The quantity is clear, but the kottu variety is not. The assistant asks a follow-up before calculating a total.', status: 'CLARIFY' }
+            },
+            {
+              chat: { who: 'Assistant', actor: 'bot', text: 'Which kottu would you like: egg, chicken, mutton, or beef?' },
+              trace: { type: 'gate', title: 'Ask for the missing variety', body: 'The assistant presents the available choices. No price or total is guessed at this stage.', status: 'AWAITING' }
+            },
+            {
+              chat: { who: 'Customer', actor: 'me', text: 'Egg kottu, please.' },
+              trace: { type: 'agent', title: 'Capture the selected items', body: 'The request is now specific enough to represent as two egg kottu.', code: '{\n  "item": "kottu",\n  "variety": "egg",\n  "quantity": 2\n}', status: 'CAPTURED' }
+            },
+            {
+              chat: { who: 'Assistant', actor: 'bot', text: 'Would you like to order anything else?' },
+              trace: { type: 'gate', title: 'Check for additional items', body: 'Give the customer an opportunity to add more items before calculating the order total.', status: 'AWAITING' }
+            },
+            {
+              chat: { who: 'Customer', actor: 'me', text: "No, that's all." },
+              trace: { type: 'code', title: 'Finish item collection', body: 'The customer has indicated there are no additional items. The system can now calculate the total for the selected order.', status: 'READY' }
+            },
+            {
+              trace: { type: 'database', title: 'Obtain the applicable menu price', body: 'Deterministic application code queries the applicable egg-kottu price from system data. No sample price is fabricated.', code: 'unit_price = <price from system data>\ntotal = 2 * unit_price', status: 'PRICE SOURCE' }
+            },
+            {
+              trace: { type: 'code', title: 'Calculate total and obtain order number', body: 'Code calculates the total. The order number comes from the backend; neither value is generated by the LLM.', code: '{\n  "quantity": 2,\n  "variety": "egg",\n  "unit_price": "<system-provided price>",\n  "total": "<calculated by code>",\n  "order_number": "<backend-provided value>"\n}', status: 'COMPUTED' }
+            },
+            {
+              chat: { who: 'Assistant', actor: 'bot', text: 'Order reference: [order number returned by backend]\nItems: 2 × Egg kottu\nTotal: [total calculated by deterministic code]' },
+              trace: { type: 'reply', title: 'Return the order details', body: 'The final message uses the backend-provided order number and the total calculated by deterministic code. Placeholders are shown because no actual price or order number was provided for this illustration.', status: 'DATA-GROUNDED' }
+            }
+          ]
+        },
+
+        admin_rag: {
+          label: '🚗 Car Rental Admin RAG (B2B)',
+          description: 'Ambiguity detection → interactive period chip → AST-sanitized SQL → RPC isolation → anti-hallucination count verification.',
+          kicker: '01 / Executive admin channel',
+          title: 'Car rental analytics assistant',
+          subtitle: 'Grounded in live database metrics · read-only enforcement',
+          principle: 'Let AI propose queries; enforce AST security, read-only RPCs, and zero-hallucination verification.',
+          pills: ['Dual-path router', 'AST validation', 'Read-only RPC', 'Anti-hallucination check'],
+          steps: [
+            // Part 1: Ambiguity & Clarification
+            {
+              chat: { who: 'Admin', actor: 'me', text: 'What is our revenue?' },
+              trace: { type: 'agent', title: 'Intent classification & ambiguity detection', body: 'The query-planner normalizes the prompt and identifies a revenue request without a defined time window. Instead of guessing a default, it routes to a clarification gate.', status: 'AMBIGUOUS' }
+            },
+            {
+              chat: {
+                who: 'Assistant',
+                actor: 'bot',
+                text: 'Which reporting period would you like revenue for?',
+                chips: ["This month's revenue", "Last month's revenue", "Compare this month with last month"]
+              },
+              trace: { type: 'gate', title: 'Trigger interactive clarification gate', body: 'The assistant renders structured options. Execution halts until the administrator chooses an explicit reporting scope.', status: 'AWAITING' }
+            },
+            {
+              chat: { who: 'Admin', actor: 'me', text: 'Compare this month with last month' },
+              trace: {
+                type: 'code',
+                title: 'Fast-path metric catalogue routing',
+                body: 'The selection routes to the pre-built `revenue_summary` metric tool with timezone normalization (`Asia/Colombo`). Deterministic SQL queries the financial ledger.',
+                code: 'getRevenueSummary(supabase, {\n  period: "comparison",\n  timezone: "Asia/Colombo"\n})',
+                status: 'DETERMINISTIC'
+              }
+            },
+            {
+              chat: {
+                who: 'Assistant',
+                actor: 'bot',
+                text: 'This month (October 2026) revenue is $18,450 (42 paid bookings), up +$3,200 (+21.0%) compared to last month ($15,250).'
+              },
+              trace: { type: 'reply', title: 'Verified financial KPI card returned', body: 'The formatted comparison card is returned directly from verified database totals. Zero LLM token hallucination.', status: 'DATA-GROUNDED' }
+            },
+
+            // Part 2: Ad-hoc AST-Validated Text-to-SQL
+            {
+              chat: { who: 'Admin', actor: 'me', text: 'Which vehicles generated the most revenue this year?' },
+              trace: {
+                type: 'agent',
+                title: 'Ad-hoc query planning & schema injection',
+                body: 'Unmatched in the metric catalogue. Gemini 1.5 Flash query planner receives strictly approved schema tables (`cars`, `bookings`, `payments`) with PII exclusions.',
+                code: '{\n  "allowed_tables": ["bookings", "cars", "payments"],\n  "forbidden_columns": ["password", "nic_passport", "token"]\n}',
+                status: 'SCHEMA BOUND'
+              }
+            },
+            {
+              trace: {
+                type: 'code',
+                title: 'Dialect-aware AST validation (pgsql-ast-parser)',
+                body: 'AST parser inspects generated query: validates single statement, confirms read-only SELECT, blocks non-whitelisted columns, and clamps LIMIT to 3.',
+                code: 'SELECT c.make, c.model, SUM(b.total_amount) AS revenue, COUNT(b.id) AS bookings\nFROM cars c\nJOIN bookings b ON c.car_id = b.car_id\nWHERE b.payment_status = \'paid\'\nGROUP BY c.car_id, c.make, c.model\nORDER BY revenue DESC\nLIMIT 3;',
+                status: 'AST VALIDATED'
+              }
+            },
+            {
+              trace: {
+                type: 'database',
+                title: 'Read-only RPC execution with race timeout guard',
+                body: 'Query executes via `execute_readonly_analytics` inside a read-only transaction with a 6,000ms race timeout guard. 3 vehicle rows returned.',
+                code: '[\n  { "make": "Toyota", "model": "Land Cruiser", "revenue": 14200, "bookings": 28 },\n  { "make": "Honda", "model": "Vezel e:HEV", "revenue": 9800, "bookings": 34 },\n  { "make": "Mercedes-Benz", "model": "C-Class", "revenue": 8750, "bookings": 15 }\n]',
+                status: 'EXECUTED'
+              }
+            },
+            {
+              trace: {
+                type: 'gate',
+                title: 'Dual-layer anti-hallucination verification',
+                body: 'Answer generator verifies that the synthesized natural language summary explicitly contains the exact database record count (3 vehicles). Discrepancy triggers deterministic template fallback.',
+                status: 'COUNT VERIFIED'
+              }
+            },
+            {
+              chat: {
+                who: 'Assistant',
+                actor: 'bot',
+                text: 'The vehicle with the highest revenue this year is the Toyota Land Cruiser ($14,200 from 28 bookings), followed by the Honda Vezel e:HEV ($9,800) and Mercedes-Benz C-Class ($8,750).',
+                table: {
+                  headers: ['Vehicle', 'Bookings', 'Total Revenue'],
+                  rows: [
+                    ['Toyota Land Cruiser', '28', '$14,200'],
+                    ['Honda Vezel e:HEV', '34', '$9,800'],
+                    ['Mercedes-Benz C-Class', '15', '$8,750']
+                  ]
+                },
+                sql: "SELECT c.make || ' ' || c.model AS vehicle, COUNT(b.id) AS bookings, SUM(b.total_amount) AS total_revenue FROM cars c JOIN bookings b ON c.car_id = b.car_id WHERE b.payment_status = 'paid' GROUP BY c.car_id, c.make, c.model ORDER BY total_revenue DESC LIMIT 3;"
+              },
+              trace: {
+                type: 'reply',
+                title: 'Grounded executive response with audit transparency',
+                body: 'Delivers a validated, jargon-free summary to the administrator, with dynamic tabular data and an expandable validated SQL inspection drawer.',
+                status: 'DATA-GROUNDED'
+              }
+            }
+          ]
+        }
+      };
+
+      const el = {
+        tabs: Array.from(document.querySelectorAll('[data-scenario]')),
+        next: document.getElementById('next'),
+        play: document.getElementById('play'),
+        reset: document.getElementById('reset'),
+        chat: document.getElementById('chat'),
+        trace: document.getElementById('trace'),
+        description: document.getElementById('scenario-description'),
+        stepCount: document.getElementById('step-count'),
+        progress: document.getElementById('progress'),
+        progressFill: document.getElementById('progress-fill'),
+        principle: document.getElementById('principle-note'),
+        pills: document.getElementById('principles-pills'),
+        channelKicker: document.getElementById('channel-kicker'),
+        channelTitle: document.getElementById('chat-heading'),
+        channelSubtitle: document.getElementById('channel-subtitle')
+      };
+
+      let current = 'kottu';
+      let stepIndex = 0;
+      let timer = null;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function activeScenario() { return scenarios[current]; }
+
+      function stopPlayback() {
+        if (timer !== null) window.clearInterval(timer);
+        timer = null;
+        el.play.textContent = '▶ Play all';
+      }
+
+      function showEmpty() {
+        el.chat.innerHTML = '<li class="empty-state"><span class="empty-icon" aria-hidden="true">↗</span><strong>Ready for a scenario</strong><span>Choose “Next step” to follow the conversation.</span></li>';
+        el.trace.innerHTML = '<li class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><strong>No steps shown yet</strong><span>The illustrative workflow trace will appear here.</span></li>';
+      }
+
+      function updateStatus() {
+        const sc = activeScenario();
+        const total = sc.steps.length;
+        const percent = total ? Math.round((stepIndex / total) * 100) : 0;
+        
+        el.description.textContent = sc.description;
+        el.channelKicker.textContent = sc.kicker;
+        el.channelTitle.textContent = sc.title;
+        el.channelSubtitle.textContent = sc.subtitle;
+
+        el.stepCount.textContent = stepIndex === 0 
+          ? `Ready · 0 of ${total} steps shown` 
+          : stepIndex >= total 
+            ? `Complete · ${total} of ${total} steps shown` 
+            : `Step ${stepIndex} of ${total}`;
+
+        el.progressFill.style.width = `${percent}%`;
+        el.progress.setAttribute('aria-valuenow', String(percent));
+        el.next.disabled = stepIndex >= total;
+
+        if (stepIndex >= total) {
+          el.principle.textContent = current === 'kottu'
+            ? 'Run complete: clarified order, deterministic total, and backend-provided order number.'
+            : 'Run complete: ambiguity handled, AST security validated, and zero-hallucination data returned.';
+        } else {
+          el.principle.textContent = sc.principle;
+        }
+
+        // Render principle pills
+        el.pills.replaceChildren();
+        sc.pills.forEach(pillText => {
+          const span = document.createElement('span');
+          span.textContent = pillText;
+          el.pills.appendChild(span);
+        });
+      }
+
+      function makeMessage(msg) {
+        const li = document.createElement('li');
+        li.className = `message ${msg.actor}`;
+        
+        const speaker = document.createElement('span');
+        speaker.className = 'speaker';
+        speaker.textContent = msg.who;
+
+        const body = document.createElement('p');
+        body.textContent = msg.text;
+        li.append(speaker, body);
+
+        // Clarification Chips
+        if (msg.chips && Array.isArray(msg.chips)) {
+          const chipWrap = document.createElement('div');
+          chipWrap.className = 'chip-container';
+          msg.chips.forEach(chipText => {
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            chip.textContent = chipText;
+            chipWrap.appendChild(chip);
+          });
+          li.appendChild(chipWrap);
+        }
+
+        // Mini Data Table
+        if (msg.table) {
+          const wrap = document.createElement('div');
+          wrap.className = 'data-table-wrap';
+          const table = document.createElement('table');
+          table.className = 'mini-table';
+          
+          const thead = document.createElement('thead');
+          const trHead = document.createElement('tr');
+          msg.table.headers.forEach(h => {
+            const th = document.createElement('th');
+            th.textContent = h;
+            trHead.appendChild(th);
+          });
+          thead.appendChild(trHead);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+          msg.table.rows.forEach(row => {
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+              const td = document.createElement('td');
+              td.textContent = cell;
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          wrap.appendChild(table);
+          li.appendChild(wrap);
+        }
+
+        // Expandable SQL Inspector
+        if (msg.sql) {
+          const details = document.createElement('details');
+          const summary = document.createElement('summary');
+          summary.className = 'sql-toggle';
+          summary.textContent = 'View validated SQL';
+          const pre = document.createElement('pre');
+          pre.className = 'code';
+          pre.textContent = msg.sql;
+          details.append(summary, pre);
+          li.appendChild(details);
+        }
+
+        const note = document.createElement('span');
+        note.className = 'message-note';
+        note.textContent = current === 'kottu' ? 'Illustrative message' : 'Verified executive analytics message';
+        li.appendChild(note);
+
+        return li;
+      }
+
+      function makeTrace(trace) {
+        const li = document.createElement('li');
+        li.className = 'trace-entry active';
+
+        const icon = document.createElement('span');
+        icon.className = 'trace-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        const iconMap = { agent: 'AI', gate: '✓', code: '{ }', database: 'DB', reply: '↗', trace: '⋯' };
+        icon.textContent = iconMap[trace.type] || '•';
+
+        const content = document.createElement('div');
+        const title = document.createElement('p');
+        title.className = 'trace-title';
+        title.textContent = trace.title;
+
+        const body = document.createElement('p');
+        body.className = 'trace-body';
+        body.textContent = trace.body;
+        content.append(title, body);
+
+        if (trace.code) {
+          const pre = document.createElement('pre');
+          pre.className = 'code';
+          pre.textContent = trace.code;
+          content.append(pre);
+        }
+
+        const status = document.createElement('span');
+        status.className = 'status';
+        status.textContent = trace.status;
+
+        li.append(icon, content, status);
+        return li;
+      }
+
+      function advance() {
+        const steps = activeScenario().steps;
+        if (stepIndex >= steps.length) { stopPlayback(); return; }
+
+        if (stepIndex === 0) {
+          el.chat.replaceChildren();
+          el.trace.replaceChildren();
+        }
+
+        const step = steps[stepIndex];
+        if (step.chat) el.chat.append(makeMessage(step.chat));
+
+        if (step.trace) {
+          const previous = el.trace.querySelectorAll('.trace-entry');
+          previous.forEach(entry => {
+            entry.classList.remove('active');
+            entry.classList.add('done');
+            const status = entry.querySelector('.status');
+            if (status) status.textContent = 'DONE';
+          });
+          el.trace.append(makeTrace(step.trace));
+        }
+
+        stepIndex += 1;
+        updateStatus();
+
+        const target = step.trace ? el.trace.lastElementChild : el.chat.lastElementChild;
+        if (target && typeof target.scrollIntoView === 'function') {
+          target.scrollIntoView({ block: 'nearest', behavior: reducedMotion ? 'auto' : 'smooth' });
+        }
+
+        if (stepIndex >= steps.length) stopPlayback();
+      }
+
+      function reset() {
+        stopPlayback();
+        stepIndex = 0;
+        showEmpty();
+        updateStatus();
+      }
+
+      function chooseScenario(key) {
+        if (!Object.prototype.hasOwnProperty.call(scenarios, key)) return;
+        current = key;
+        el.tabs.forEach(tab => tab.setAttribute('aria-pressed', String(tab.dataset.scenario === current)));
+        reset();
+      }
+
+      function downloadCleanSource() {
+        stopPlayback();
+        const copy = document.documentElement.cloneNode(true);
+        copy.querySelector('#chat').innerHTML = '<li class="empty-state"><span class="empty-icon" aria-hidden="true">↗</span><strong>Ready for a scenario</strong><span>Choose “Next step” to follow the conversation.</span></li>';
+        copy.querySelector('#trace').innerHTML = '<li class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><strong>No steps shown yet</strong><span>The illustrative workflow trace will appear here.</span></li>';
+        copy.querySelector('#step-count').textContent = 'Ready · 0 steps shown';
+        copy.querySelector('#progress-fill').removeAttribute('style');
+        copy.querySelector('#progress').setAttribute('aria-valuenow', '0');
+        copy.querySelector('#next').removeAttribute('disabled');
+        copy.querySelector('#play').textContent = '▶ Play all';
+        copy.querySelectorAll('[data-scenario]').forEach(tab => tab.setAttribute('aria-pressed', String(tab.dataset.scenario === current)));
+        
+        const markup = '<!doctype html>\n' + copy.outerHTML + '\n';
+        const blob = new Blob([markup], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Piraveen_AI_Workflow_Demo.html';
+        link.style.display = 'none';
+        document.body.append(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      el.tabs.forEach(tab => tab.addEventListener('click', () => chooseScenario(tab.dataset.scenario)));
+      el.next.addEventListener('click', () => { stopPlayback(); advance(); });
+      el.reset.addEventListener('click', reset);
+      document.getElementById('download-source').addEventListener('click', downloadCleanSource);
+
+      el.play.addEventListener('click', () => {
+        if (timer !== null) { stopPlayback(); return; }
+        if (stepIndex >= activeScenario().steps.length) reset();
+        el.play.textContent = 'Ⅱ Pause';
+        advance();
+        if (stepIndex < activeScenario().steps.length) {
+          timer = window.setInterval(() => {
+            advance();
+            if (stepIndex >= activeScenario().steps.length) stopPlayback();
+          }, reducedMotion ? 1800 : 1350);
+        }
+      });
+
+      showEmpty();
+      updateStatus();
+    })();
+  </script>
 </body>
 </html>
+
