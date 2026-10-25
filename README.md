@@ -23,7 +23,7 @@ I'm a **Computer Science undergraduate at the University of Jaffna** and a **Sof
 
 This illustrative walkthrough shows the WhatsApp kottu-order flow: the assistant clarifies the variety, checks whether the customer wants anything else, and then deterministic application code calculates the total. The final response uses the order number supplied by the backend. No real customer data, prices, or order IDs are shown.
 
-**[Open the interactive AI workflow demo](./ai-workflow-demo.html)**
+**[▶ Launch the interactive AI workflow demo](https://piraveen17.github.io/Piraveen17/ai-workflow-demo.html)**
 
 | Stage | What happens |
 | --- | --- |
