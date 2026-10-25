@@ -54,7 +54,7 @@ I build AI workflows around a strict design philosophy: **Let AI help interpret 
       <h3 align="center">🚗 Car Rental Admin RAG<br/><sub>Enterprise Text-to-SQL</sub></h3>
       <p align="left">A governed natural-language BI assistant for executive admins. Routes queries between deterministic metric tools and AST-validated read-only SQL, with a dual-layer check verifying numeric claims against raw database records.</p>
       <p align="center">
-        <code>Next.js</code> <code>Gemini API</code> <code>pgsql-ast-parser</code> <code>Supabase RPC</code>
+        <code>Next.js</code> <code>pgsql-ast-parser</code> <code>Supabase RPC</code>
       </p>
       <p align="center">
         <a href="https://piraveen17.github.io/Piraveen17/?scenario=admin_rag">
