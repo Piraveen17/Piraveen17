@@ -239,19 +239,6 @@ I design AI workflows around a strict philosophy: <strong>let the model interpre
 
 <br />
 
-## 📈 GitHub Activity
-
-<div align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=Piraveen17&show_icons=true&hide_border=true&bg_color=0D1117&title_color=38BDF8&icon_color=2DD4BF&text_color=C9D1D9" alt="GitHub statistics" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Piraveen17&layout=compact&hide_border=true&langs_count=8&bg_color=0D1117&title_color=38BDF8&text_color=C9D1D9" alt="Most used languages" />
-  <br />
-  <img src="https://streak-stats.demolab.com?user=Piraveen17&hide_border=true&background=0D1117&ring=38BDF8&fire=2DD4BF&currStreakLabel=38BDF8&sideLabels=C9D1D9&dates=8B949E" alt="GitHub contribution streak" />
-</div>
-
-<p align="center"><sub>Stats and animated elements are rendered by third-party services, so they may occasionally be unavailable.</sub></p>
-
-<br />
-
 ## 🤝 Let's Connect
 
 <div align="center">
