@@ -30,6 +30,9 @@ jobs:
         with:
           enablement: true
 
+      - name: Prepare interactive demo as the Pages homepage
+        run: cp ai-workflow-demo.html index.html
+
       - name: Upload static website
         uses: actions/upload-pages-artifact@v3
         with:

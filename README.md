@@ -45,7 +45,7 @@ I build AI workflows around a strict design philosophy: **Let AI help interpret 
         <code>FastAPI</code> <code>OpenRouter</code> <code>PostgreSQL</code> <code>Deterministic Pricing</code>
       </p>
       <p align="center">
-        <a href="https://claude.ai/artifact/FQb7VPZ5ywqXMwCNdGANpb">
+        <a href="https://piraveen17.github.io/Piraveen17/?scenario=kottu">
           <img src="https://img.shields.io/badge/▶_Try_the_Walkthrough-38BDF8?style=for-the-badge&logoColor=white" alt="Try the WhatsApp Order walkthrough" />
         </a>
       </p>
@@ -57,7 +57,7 @@ I build AI workflows around a strict design philosophy: **Let AI help interpret 
         <code>Next.js</code> <code>Gemini API</code> <code>pgsql-ast-parser</code> <code>Supabase RPC</code>
       </p>
       <p align="center">
-        <a href="https://claude.ai/artifact/FQb7VPZ5ywqXMwCNdGANpb">
+        <a href="https://piraveen17.github.io/Piraveen17/?scenario=admin_rag">
           <img src="https://img.shields.io/badge/▶_Try_the_Walkthrough-2DD4BF?style=for-the-badge&logoColor=white" alt="Try the Car Rental AI assistant walkthrough" />
         </a>
       </p>

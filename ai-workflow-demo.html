@@ -668,8 +668,8 @@
         }
       });
 
-      showEmpty();
-      updateStatus();
+      const requestedScenario = new URLSearchParams(window.location.search).get('scenario');
+      chooseScenario(requestedScenario === 'admin_rag' ? 'admin_rag' : 'kottu');
     })();
   </script>
 </body>
